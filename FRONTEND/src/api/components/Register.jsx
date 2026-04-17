@@ -62,8 +62,10 @@ const handleSubmit = async () => {
     if (!validar()) return;
 
     const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
+    const absoluteURL = baseURL.startsWith('http') ? baseURL : `https://${baseURL}`;
     
-    const finalURL = `${baseURL.replace(/\/$/, '')}/api/auth/register`;
+    const finalURL = `${absoluteURL.replace(/\/$/, '')}/api/auth/register`;
 
     console.log("Intentando registrar en:", finalURL); 
 

@@ -53,8 +53,10 @@ const handleSubmit = async () => {
     if (!validar()) return;
 
     const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
+    const absoluteURL = baseURL.startsWith('http') ? baseURL : `https://${baseURL}`;
     
-    const finalURL = `${baseURL.replace(/\/$/, '')}/api/auth/login`;
+    const finalURL = `${absoluteURL.replace(/\/$/, '')}/api/auth/login`;
 
     console.log("Intentando conectar a:", finalURL); 
 
