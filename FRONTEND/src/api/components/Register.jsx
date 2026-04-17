@@ -59,16 +59,26 @@ export const Register = () => {
   }
 
 const handleSubmit = async () => {
-    if (!validar()) return
+    if (!validar()) return;
+
+    const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+    
+    const finalURL = `${baseURL.replace(/\/$/, '')}/api/auth/register`;
+
+    console.log("Intentando registrar en:", finalURL); 
 
     try {
-        await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/auth/register`, form)
-        setExito(true)
-        setTimeout(() => navigate('/login'), 1500)
+        await axios.post(finalURL, form);
+        
+        setExito(true);
+        setTimeout(() => navigate('/login'), 1500);
+        
     } catch (error) {
-        console.error(error.response?.data || error)
+        console.error("Error en registro:", error.response?.data || error);
+        
+        alert(error.response?.data?.msg || 'Error al intentar registrar el usuario');
     }
-}
+};
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#d8d8d8' }}>

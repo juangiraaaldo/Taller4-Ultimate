@@ -50,17 +50,25 @@ export const Login = () => {
     }
 
 const handleSubmit = async () => {
-    if (!validar()) return
+    if (!validar()) return;
+
+    const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+    
+    const finalURL = `${baseURL.replace(/\/$/, '')}/api/auth/login`;
+
+    console.log("Intentando conectar a:", finalURL); 
 
     try {
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/auth/login`, form);
-        login(data.accessToken)
-        setExito(true)
-        setTimeout(() => navigate('/dashboard'), 1000)
+        const { data } = await axios.post(finalURL, form);
+        
+        login(data.accessToken); 
+        setExito(true);
+        setTimeout(() => navigate('/dashboard'), 1000);
     } catch (error) {
-        alert(error.response?.data?.msg || 'Error al conectar')
+        console.error("Error en login:", error.response?.data || error);
+        alert(error.response?.data?.msg || 'Error al conectar al servidor');
     }
-}
+};
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#d8d8d8' }}>
