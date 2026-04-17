@@ -62,7 +62,7 @@ const handleSubmit = async () => {
     if (!validar()) return
 
     try {
-        await axios.post('http://localhost:4000/api/auth/register', form)
+        await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:4000'}/api/auth/register`, form)
         setExito(true)
         setTimeout(() => navigate('/login'), 1500)
     } catch (error) {
