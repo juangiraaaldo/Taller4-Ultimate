@@ -78,6 +78,7 @@ const todosLosLibros = [...libros, ...extra]
                     backgroundColor: '#f5f5f5',
                     pt: 2
                   }}
+                  loading='lazy'
                 />
                 <CardContent>
                   <Chip

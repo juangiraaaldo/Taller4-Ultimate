@@ -59,68 +59,68 @@ export const Dashboard = () => {
       <Grid container spacing={3}>
 
         {/* 🔹 FORMULARIO */}
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8}}>
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               Agregar libro
             </Typography>
 
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6}}>
                 <TextField fullWidth label="Título" name="titulo"
                   value={form.titulo} onChange={handleChange}
                   sx={{
                     '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
                     '& .MuiOutlinedInput-root': {
-                      '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+                      '&:hover fieldset': { borderColor: '#4a4a4a4a', },
                       '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
                     },
                   }} />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6}}>
                 <TextField fullWidth label="Autor" name="autor"
                   value={form.autor} onChange={handleChange}
                   sx={{
                     '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
                     '& .MuiOutlinedInput-root': {
-                      '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+                      '&:hover fieldset': { borderColor: '#4a4a4a4a', },
                       '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
                     },
                   }} />
               </Grid>
 
-              <Grid item xs={4}>
+              <Grid size={{ xs: 4}}>
                 <TextField fullWidth label="Precio" name="precio"
                   value={form.precio} onChange={handleChange}
                   sx={{
                     '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
                     '& .MuiOutlinedInput-root': {
-                      '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+                      '&:hover fieldset': { borderColor: '#4a4a4a4a', },
                       '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
                     },
                   }} />
               </Grid>
 
-              <Grid item xs={4}>
+              <Grid size={{ xs: 4}}>
                 <TextField fullWidth label="Descuento %" name="descuento"
                   value={form.descuento} onChange={handleChange}
                   sx={{
                     '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
                     '& .MuiOutlinedInput-root': {
-                      '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+                      '&:hover fieldset': { borderColor: '#4a4a4a4a', },
                       '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
                     },
                   }} />
               </Grid>
 
-              <Grid item xs={4}>
+              <Grid size={{ xs: 4}}>
                 <TextField select fullWidth label="Categoría" name="categoria"
                   value={form.categoria} onChange={handleChange}
                   sx={{
                     '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
                     '& .MuiOutlinedInput-root': {
-                      '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+                      '&:hover fieldset': { borderColor: '#4a4a4a4a', },
                       '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
                     },
                   }} >
@@ -130,13 +130,13 @@ export const Dashboard = () => {
                 </TextField>
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <TextField fullWidth label="Imagen URL" name="img"
                   value={form.img} onChange={handleChange}
                   sx={{
                     '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
                     '& .MuiOutlinedInput-root': {
-                      '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+                      '&:hover fieldset': { borderColor: '#4a4a4a4a', },
                       '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
                     },
                   }} />
@@ -154,7 +154,7 @@ export const Dashboard = () => {
         </Grid>
 
         {/* 🔹 PANEL LATERAL (tipo la imagen) */}
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md:4 }}>
           <Paper sx={{ p: 3 }}>
             <Typography fontWeight={700} sx={{ mb: 2 }}>
               Resumen
@@ -167,14 +167,14 @@ export const Dashboard = () => {
         </Grid>
 
         {/* 🔹 LISTA */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Typography variant="h6" sx={{ mb: 2 }}>
             Libros agregados
           </Typography>
 
           <Grid container spacing={2}>
             {libros.map(libro => (
-              <Grid item xs={12} md={3} key={libro.id}>
+              <Grid size={{ xs: 12, md:3}} key={libro.id}>
                 <Paper sx={{ p: 2 }}>
                   <Typography fontWeight={700}>{libro.titulo}</Typography>
                   <Typography variant="body2">{libro.autor}</Typography>

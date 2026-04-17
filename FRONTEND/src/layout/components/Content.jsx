@@ -73,7 +73,7 @@ export const Content = () => {
             <Typography variant="overline" sx={{ letterSpacing: 3, fontSize: { xs: '0.7rem', md: '0.9rem' } }}>
               LANDING PAGE • TIENDA VIRTUAL
             </Typography>
-            <Typography variant="h3" fontWeight={700} sx={{ mb: 1, fontSize: { xs: '1.8rem', md: '3rem' } }}>
+            <Typography variant="h1" fontWeight={700} sx={{ mb: 1, fontSize: { xs: '1.8rem', md: '3rem' } }}>
               Tu tienda de libros
             </Typography>
             <Typography variant="body1" sx={{ maxWidth: 500, fontSize: { xs: '0.9rem', md: '1rem' } }}>
@@ -147,7 +147,7 @@ export const Content = () => {
                   transition: 'transform 0.3s',
                   '&:hover': { transform: 'translateY(-5px)' }
                 }}>
-                  <CardMedia component="img" height="160" image={item.img} alt={item.titulo} sx={{ objectFit: 'cover' }} />
+                  <CardMedia component="img" height="200" image={item.img} alt={item.titulo} alt='Portada de Libro' sx={{ objectFit: 'cover' }} loading='lazy' />
                   <CardContent>
                     <Typography variant="h6" fontWeight={700} sx={{ mb: 1 }}>{item.titulo}</Typography>
                     <Typography variant="body2" color="text.secondary">{item.descripcion}</Typography>

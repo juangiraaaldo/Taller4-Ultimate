@@ -96,7 +96,7 @@ export const Header = () => {
                         <Button key={page.label} component={NavLink} to={page.path}
                             onClick={handleCloseNavMenu}
                             sx={{
-                                color: 'rgb(107, 98, 104)', fontWeight: 600, letterSpacing: '.1rem',
+                                color: '#4a4a4a4a', fontWeight: 600, letterSpacing: '.1rem',
                                 '&:hover': { color: 'rgb(69, 49, 116)' },
                                 '&.active': { borderBottom: '2px solid rgb(69, 49, 116)', color: 'rgb(69, 49, 116)' },
                             }}>
@@ -140,7 +140,7 @@ export const Header = () => {
                 ) : (
                     <Button component={NavLink} to="/login" sx={{
                         ml: 2, px: 2.5, py: 0.8,
-                        border: '2px solid rgb(107, 98, 104)',
+                        border: '2px solid #4a4a4a4a',
                         color: 'rgb(73, 66, 71)', fontWeight: 700, letterSpacing: '.1rem',
                         borderRadius: '4px', transition: 'all 0.2s ease',
                         '&:hover': { background: 'rgb(69, 49, 116)', color: '#a0a0a0', border: '2px solid #c5c5c5' },

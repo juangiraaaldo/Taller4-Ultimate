@@ -8,6 +8,7 @@ import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 import { useAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export const Login = () => {
 
@@ -49,33 +50,18 @@ export const Login = () => {
     }
 
 const handleSubmit = async () => {
-    if (!validar()) return;
+    if (!validar()) return
 
     try {
-        const response = await fetch('http://localhost:4000/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(form)
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            login(data.accessToken);
-            setExito(true);
-
-            setTimeout(() => {
-                navigate('/dashboard');
-            }, 1000);
-
-        } else {
-            alert(data.msg);
-        }
-
+        const { data } = await axios.post('http://localhost:4000/api/auth/login', form)
+        login(data.accessToken)
+        setExito(true)
+        setTimeout(() => navigate('/dashboard'), 1000)
     } catch (error) {
-        console.error("Error al conectar con la API");
+        alert(error.response?.data?.msg || 'Error al conectar')
     }
 }
+
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#d8d8d8' }}>
             <Paper elevation={4} sx={{ p: 5, borderRadius: '16px', width: '100%', maxWidth: 400 }}>
@@ -97,7 +83,7 @@ const handleSubmit = async () => {
                         '& .MuiOutlinedInput-root': {
                             // Color del borde cuando pasas el mouse (hover)
                             '&:hover fieldset': {
-                                borderColor: 'rgb(107, 98, 104)',
+                                borderColor: '#4a4a4a4a',
                             },
                             // Color del borde cuando haces CLICK (focus)
                             '&.Mui-focused fieldset': {
@@ -125,7 +111,7 @@ const handleSubmit = async () => {
                         '& .MuiOutlinedInput-root': {
                             // Color del borde cuando pasas el mouse (hover)
                             '&:hover fieldset': {
-                                borderColor: 'rgb(107, 98, 104)',
+                                borderColor: '#4a4a4a4a',
                             },
                             // Color del borde cuando haces CLICK (focus)
                             '&.Mui-focused fieldset': {

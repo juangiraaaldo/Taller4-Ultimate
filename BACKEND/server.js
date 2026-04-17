@@ -1,7 +1,15 @@
-import app from './src/app.js'
+import express from 'express';
+import cors from 'cors';
+import userRoutes from './src/routes/auth.routes.js'; 
 
-const PORT = process.env.PORT || 4000
+const app = express();
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`)
-})
+// Middlewares
+app.use(cors()); 
+app.use(express.json()); 
+
+// Rutas
+app.use('/api/users', userRoutes); 
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server en puerto ${PORT}`));

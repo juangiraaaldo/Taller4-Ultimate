@@ -69,7 +69,7 @@ export const Api = () => {
               transition: 'transform 0.2s',
               '&:hover': { transform: 'scale(1.03)' }
             }}>
-              <CardMedia component="img" height="200" image={p.image} alt={p.name} />
+              <CardMedia component="img" height="200" image={p.image} alt={p.name} loading='lazy' />
               <CardContent>
                 <Typography variant="h6" fontWeight={700} sx={{ mb: 1, fontSize: '0.95rem' }}>
                   {p.name}
@@ -95,6 +95,7 @@ export const Api = () => {
       {/* Controles de paginación */}
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 3, mt: 4 }}>
         <IconButton
+          aria-label='Página Anterior'
           onClick={() => setPagina(p => p - 1)}
           disabled={pagina === 0}
           sx={{ backgroundColor: '#212121', color: 'white', '&:hover': { backgroundColor: 'rgb(69, 49, 116)' }, '&:disabled': { backgroundColor: '#ccc' } }}
@@ -107,6 +108,7 @@ export const Api = () => {
         </Typography>
 
         <IconButton
+          aria-label='Página Siguiente'
           onClick={() => setPagina(p => p + 1)}
           disabled={pagina === totalPaginas - 1}
           sx={{ backgroundColor: '#212121', color: 'white', '&:hover': { backgroundColor: 'rgb(69, 49, 116)' }, '&:disabled': { backgroundColor: '#ccc' } }}

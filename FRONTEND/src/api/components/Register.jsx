@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export const Register = () => {
 
@@ -58,31 +59,15 @@ export const Register = () => {
   }
 
 const handleSubmit = async () => {
-  if (!validar()) return
+    if (!validar()) return
 
-  try {
-    const response = await fetch('http://localhost:4000/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form)
-    })
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      console.log(data)
-      return
+    try {
+        await axios.post('http://localhost:4000/api/auth/register', form)
+        setExito(true)
+        setTimeout(() => navigate('/login'), 1500)
+    } catch (error) {
+        console.error(error.response?.data || error)
     }
-
-    setExito(true)
-
-    setTimeout(() => {
-      navigate('/login')
-    }, 1500)
-
-  } catch (error) {
-    console.error(error)
-  }
 }
 
   return (
@@ -101,7 +86,7 @@ const handleSubmit = async () => {
             mb: 3,
             '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
             '& .MuiOutlinedInput-root': {
-              '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+              '&:hover fieldset': { borderColor: '#4a4a4a4a', },
               '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
             },
           }} />
@@ -111,7 +96,7 @@ const handleSubmit = async () => {
             mb: 3,
             '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
             '& .MuiOutlinedInput-root': {
-              '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+              '&:hover fieldset': { borderColor: '#4a4a4a4a', },
               '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
             },
           }} />
@@ -120,7 +105,7 @@ const handleSubmit = async () => {
           onChange={handleChange} error={!!errores.password} helperText={errores.password} sx={{ mb: 3, 
                         '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
             '& .MuiOutlinedInput-root': {
-              '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)',},
+              '&:hover fieldset': { borderColor: '#4a4a4a4a',},
               '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
             },
           }}  />
@@ -129,7 +114,7 @@ const handleSubmit = async () => {
           onChange={handleChange} error={!!errores.confirmar} helperText={errores.confirmar} sx={{ mb: 4, 
                       '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
             '& .MuiOutlinedInput-root': {
-              '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)',},
+              '&:hover fieldset': { borderColor: '#4a4a4a4a',},
               '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
             },
           }}  />
