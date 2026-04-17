@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getPersonajes } from '../services/mierdadque'
+import { getPersonajes } from '../services/rickandmortyservice'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
