@@ -6,8 +6,12 @@ import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
+import { useNavigate } from 'react-router-dom'
 
 export const Register = () => {
+
+  const navigate = useNavigate()
+
   const [form, setForm] = useState({ nombre: '', email: '', password: '', confirmar: '' })
   const [errores, setErrores] = useState({ nombre: '', email: '', password: '', confirmar: '' })
   const [exito, setExito] = useState(false)
@@ -53,10 +57,33 @@ export const Register = () => {
     return valido
   }
 
-  const handleSubmit = () => {
-    if (!validar()) return
+const handleSubmit = async () => {
+  if (!validar()) return
+
+  try {
+    const response = await fetch('http://localhost:4000/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form)
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      console.log(data)
+      return
+    }
+
     setExito(true)
+
+    setTimeout(() => {
+      navigate('/login')
+    }, 1500)
+
+  } catch (error) {
+    console.error(error)
   }
+}
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#d8d8d8' }}>
@@ -70,21 +97,47 @@ export const Register = () => {
         </Typography>
 
         <TextField fullWidth label="Nombre" name="nombre" value={form.nombre}
-          onChange={handleChange} error={!!errores.nombre} helperText={errores.nombre} sx={{ mb: 3 }} />
+          onChange={handleChange} error={!!errores.nombre} helperText={errores.nombre} sx={{
+            mb: 3,
+            '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+              '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
+            },
+          }} />
 
         <TextField fullWidth label="Email" name="email" type="email" value={form.email}
-          onChange={handleChange} error={!!errores.email} helperText={errores.email} sx={{ mb: 3 }} />
+          onChange={handleChange} error={!!errores.email} helperText={errores.email} sx={{
+            mb: 3,
+            '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)', },
+              '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
+            },
+          }} />
 
         <TextField fullWidth label="Contraseña" name="password" type="password" value={form.password}
-          onChange={handleChange} error={!!errores.password} helperText={errores.password} sx={{ mb: 3 }} />
+          onChange={handleChange} error={!!errores.password} helperText={errores.password} sx={{ mb: 3, 
+                        '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)',},
+              '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
+            },
+          }}  />
 
         <TextField fullWidth label="Confirmar contraseña" name="confirmar" type="password" value={form.confirmar}
-          onChange={handleChange} error={!!errores.confirmar} helperText={errores.confirmar} sx={{ mb: 4 }} />
+          onChange={handleChange} error={!!errores.confirmar} helperText={errores.confirmar} sx={{ mb: 4, 
+                      '& label.Mui-focused': { color: 'rgb(69, 49, 116)', },
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': { borderColor: 'rgb(107, 98, 104)',},
+              '&.Mui-focused fieldset': { borderColor: 'rgb(69, 49, 116)', },
+            },
+          }}  />
 
         <Button fullWidth variant="contained" onClick={handleSubmit}
           sx={{
             backgroundColor: '#212121', py: 1.5, fontWeight: 700, letterSpacing: '.1rem',
-            '&:hover': { backgroundColor: 'rgb(226, 43, 165)' }
+            '&:hover': { backgroundColor: 'rgb(69, 49, 116)' }
           }}
         >
           Registrarse
@@ -92,7 +145,7 @@ export const Register = () => {
 
         <Typography variant="body2" sx={{ mt: 3, textAlign: 'center' }}>
           ¿Ya tienes cuenta?{' '}
-          <a href="#/login" style={{ color: 'rgb(226, 43, 165)', fontWeight: 600 }}>
+          <a href="#/login" style={{ color: 'rgb(69, 49, 116)', fontWeight: 600 }}>
             Inicia sesión
           </a>
         </Typography>

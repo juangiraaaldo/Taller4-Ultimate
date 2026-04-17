@@ -137,7 +137,7 @@ export const Content = () => {
           <Typography variant="body1" color="text.secondary" sx={{ mb: 4, textAlign: { xs: 'center', md: 'left' } }}>
             Géneros esenciales de la literatura.
           </Typography>
-          <Grid container spacing={3} justifyContent="center">
+          <Grid container spacing={3} sx={{justifyContent:"center"}}>
             {caracteristicas.map((item) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={item.titulo}>
                 <Card sx={{
@@ -193,7 +193,7 @@ export const Content = () => {
             <Button
               variant="contained"
               component="a"
-              href="https://github.com/tu-usuario/tu-repositorio"
+              href="https://github.com/juangiraaaldo/Taller4-Ultimate.git"
               target="_blank"
               sx={{
                 backgroundColor: '#f5f5f5',

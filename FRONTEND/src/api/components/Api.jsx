@@ -97,7 +97,7 @@ export const Api = () => {
         <IconButton
           onClick={() => setPagina(p => p - 1)}
           disabled={pagina === 0}
-          sx={{ backgroundColor: '#212121', color: 'white', '&:hover': { backgroundColor: 'rgb(226, 43, 165)' }, '&:disabled': { backgroundColor: '#ccc' } }}
+          sx={{ backgroundColor: '#212121', color: 'white', '&:hover': { backgroundColor: 'rgb(69, 49, 116)' }, '&:disabled': { backgroundColor: '#ccc' } }}
         >
           <ArrowBackIosIcon />
         </IconButton>
@@ -109,7 +109,7 @@ export const Api = () => {
         <IconButton
           onClick={() => setPagina(p => p + 1)}
           disabled={pagina === totalPaginas - 1}
-          sx={{ backgroundColor: '#212121', color: 'white', '&:hover': { backgroundColor: 'rgb(226, 43, 165)' }, '&:disabled': { backgroundColor: '#ccc' } }}
+          sx={{ backgroundColor: '#212121', color: 'white', '&:hover': { backgroundColor: 'rgb(69, 49, 116)' }, '&:disabled': { backgroundColor: '#ccc' } }}
         >
           <ArrowForwardIosIcon />
         </IconButton>

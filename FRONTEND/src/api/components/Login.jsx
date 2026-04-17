@@ -6,8 +6,13 @@ import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
+import { useAuth } from '../../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 export const Login = () => {
+
+    const { login } = useAuth()
+    const navigate = useNavigate()
 
     const [exito, setExito] = useState(false)
 
@@ -43,27 +48,34 @@ export const Login = () => {
         return valido
     }
 
-    const handleSubmit = async () => {
-        if (!validar()) return;
-        try {
-            const response = await fetch('http://localhost:4000/api/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(form)
-            });
-            const data = await response.json();
-            if (response.ok) {
-                localStorage.setItem('token', data.accessToken);
-                setExito(true);
+const handleSubmit = async () => {
+    if (!validar()) return;
 
-            } else {
-                alert(data.msg); 
-            }
-        } catch (error) {
-            console.error("Error al conectar con la API");
+    try {
+        const response = await fetch('http://localhost:4000/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(form)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            login(data.accessToken);
+            setExito(true);
+
+            setTimeout(() => {
+                navigate('/dashboard');
+            }, 1000);
+
+        } else {
+            alert(data.msg);
         }
-    }
 
+    } catch (error) {
+        console.error("Error al conectar con la API");
+    }
+}
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#d8d8d8' }}>
             <Paper elevation={4} sx={{ p: 5, borderRadius: '16px', width: '100%', maxWidth: 400 }}>
@@ -76,6 +88,23 @@ export const Login = () => {
                 </Typography>
 
                 <TextField
+                    sx={{
+                        mb: 3,
+                        // Color del label cuando está enfocado
+                        '& label.Mui-focused': {
+                            color: 'rgb(69, 49, 116)',
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            // Color del borde cuando pasas el mouse (hover)
+                            '&:hover fieldset': {
+                                borderColor: 'rgb(107, 98, 104)',
+                            },
+                            // Color del borde cuando haces CLICK (focus)
+                            '&.Mui-focused fieldset': {
+                                borderColor: 'rgb(69, 49, 116)',
+                            },
+                        },
+                    }}
                     fullWidth
                     label="Email"
                     name="email"
@@ -84,10 +113,26 @@ export const Login = () => {
                     onChange={handleChange}
                     error={!!errores.email}
                     helperText={errores.email}
-                    sx={{ mb: 3 }}
                 />
 
                 <TextField
+                    sx={{
+                        mb: 4,
+                        // Color del label cuando está enfocado
+                        '& label.Mui-focused': {
+                            color: 'rgb(69, 49, 116)',
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            // Color del borde cuando pasas el mouse (hover)
+                            '&:hover fieldset': {
+                                borderColor: 'rgb(107, 98, 104)',
+                            },
+                            // Color del borde cuando haces CLICK (focus)
+                            '&.Mui-focused fieldset': {
+                                borderColor: 'rgb(69, 49, 116)',
+                            },
+                        },
+                    }}
                     fullWidth
                     label="Contraseña"
                     name="password"
@@ -96,7 +141,6 @@ export const Login = () => {
                     onChange={handleChange}
                     error={!!errores.password}
                     helperText={errores.password}
-                    sx={{ mb: 4 }}
                 />
 
                 <Button
@@ -104,7 +148,7 @@ export const Login = () => {
                     variant="contained"
                     onClick={handleSubmit}
                     sx={{
-                        backgroundColor: '#5a5a5a',
+                        backgroundColor: '#212121',
                         py: 1.5,
                         fontWeight: 700,
                         letterSpacing: '.1rem',

@@ -9,6 +9,9 @@ import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { useAuth } from '../../context/AuthContext';
+import { useState } from 'react';
+import { useStore } from '../../context/StoreContext';
 
 const libros = [
   { id: 1, titulo: 'Don Quijote de la Mancha', autor: 'Miguel de Cervantes', precio: 18.99, descuento: 10, categoria: 'Clásico', img: "/imgs/don.png" },
@@ -35,6 +38,14 @@ const libros = [
 
 
 export const Libros = () => {
+
+const { token } = useAuth()
+const { favoritos, carrito, toggleFavorito, agregarCarrito } = useStore()
+
+const extra = JSON.parse(localStorage.getItem('librosExtra')) || []
+
+const todosLosLibros = [...libros, ...extra]
+
   return (
     <>
       <Box sx={{ px: 4, py: 6, backgroundColor: '#d1d1d1cb' }}>
@@ -47,7 +58,7 @@ export const Libros = () => {
         </Typography>
 
         <Grid container spacing={3}>
-          {libros.map((libro) => (
+          {todosLosLibros.map((libro) => (
             <Grid size={{ xs: 12, sm: 6, md: 3 }} key={libro.id}>
               <Card sx={{
                 height: '100%',
@@ -65,7 +76,7 @@ export const Libros = () => {
                     width: '100%',
                     objectFit: 'contain',
                     backgroundColor: '#f5f5f5',
-                    pt: 2 
+                    pt: 2
                   }}
                 />
                 <CardContent>
@@ -92,11 +103,48 @@ export const Libros = () => {
                         ${libro.precio}
                       </Typography>
                     )}
+
                   </Box>
                 </CardContent>
+
+                {token && (
+                  <CardActions sx={{ display: 'flex', gap: 1, px: 2, pb: 2 }}>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      onClick={() => toggleFavorito(libro.id)}
+                      sx={{
+                        borderColor: favoritos.includes(libro.id) ? 'rgb(69, 49, 116)' : '#212121',
+                        color: favoritos.includes(libro.id) ? 'rgb(69, 49, 116)' : '#212121',
+                        '&:hover': {
+                          backgroundColor: 'rgba(226, 43, 165, 0.1)',
+                          borderColor: 'rgb(69, 49, 116)',
+                          color: 'rgb(69, 49, 116)',
+                        }
+                      }}
+                    >
+                      <FavoriteIcon fontSize="small" />
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      onClick={() => agregarCarrito(libro.id)}
+                      fullWidth
+                      sx={{
+                        backgroundColor: carrito.includes(libro.id) ? 'rgb(69, 49, 116)' : '#212121',
+                        '&:hover': { backgroundColor: 'rgb(69, 49, 116)' }
+                      }}
+                      startIcon={<AddShoppingCartIcon />}
+                    >
+                      {carrito.includes(libro.id) ? 'Agregado' : 'Agregar'}
+                    </Button>
+                  </CardActions>
+                )}
               </Card>
+
             </Grid>
           ))}
+
         </Grid>
 
       </Box>
